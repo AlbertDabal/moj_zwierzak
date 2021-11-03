@@ -2,7 +2,7 @@ import Button from 'components/atom/Button/Button';
 import styled from 'styled-components';
 import Heading from 'components/atom/Heading/Heading';
 import React from 'react';
-import { MainTemplate } from 'templates/MainTemplate';
+import { MainTemplate, WelcomeTemplate } from 'templates/WelcomeTemplate';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
@@ -26,14 +26,14 @@ const StyledLink = styled(Link)`
 `;
 
 const Wellcome = () => (
-  <MainTemplate>
+  <WelcomeTemplate>
     <Wrapper>
       <Heading>Sprawdź gdzie są twoje futszaki ...</Heading>
       <StyledLink to="/login" style={{ width: '250px', marginTop: 30 }}>
         dołącz już teraz
       </StyledLink>
     </Wrapper>
-  </MainTemplate>
+  </WelcomeTemplate>
 );
 
 export default Wellcome;

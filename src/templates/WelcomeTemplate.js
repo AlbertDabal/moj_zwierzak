@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Heading from 'components/atom/Heading/Heading';
 import background from 'images/background.jpg';
-import { NavigationMain } from 'components/organism/Navigation/NavigationMain';
 
 const Title = styled.div`
   font-size: 3rem;
@@ -25,17 +24,16 @@ const Page = styled.div`
   margin-top: 100px;
 `;
 
-export const MainTemplate = ({ children }) => (
+export const WelcomeTemplate = ({ children }) => (
   <Wrapper>
     <Title>
       <span>Mój</span>
       <span>Zwierzak</span>
     </Title>
-    <NavigationMain />
     <Page>{children}</Page>
   </Wrapper>
 );
 
-MainTemplate.propTypes = {
+WelcomeTemplate.propTypes = {
   children: PropTypes.element.isRequired,
 };

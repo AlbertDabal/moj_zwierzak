@@ -1,9 +1,10 @@
 import React from 'react';
 import Heading from 'components/atom/Heading/Heading';
-import { MainTemplate } from 'templates/MainTemplate';
+import { MainTemplate, WelcomeTemplate } from 'templates/WelcomeTemplate';
 import styled from 'styled-components';
 import Input from 'components/atom/Input/Input';
 import Button from 'components/atom/Button/Button';
+import { useHistory, Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,13 +16,25 @@ const Wrapper = styled.div`
   padding: 50px 50px;
 `;
 
-export const Login = () => (
-  <MainTemplate>
-    <Heading>Sprawdź gdzie są twoje futszaki ...</Heading>
-    <Wrapper>
-      <Input placeholder="Email" />
-      <Input placeholder="Hasło" type="password" />
-      <Button style={{ width: '50%', marginTop: '30px' }}>dalej</Button>
-    </Wrapper>
-  </MainTemplate>
-);
+export const Login = () => {
+  const history = useHistory();
+
+  const Zaloguj = () => {
+    history.push('/dashboard');
+  };
+
+  return (
+    <WelcomeTemplate>
+      <Heading>Sprawdź gdzie są twoje futszaki ...</Heading>
+      <Wrapper>
+        <form onSubmit={Zaloguj}>
+          <Input placeholder="Email" />
+          <Input placeholder="Hasło" type="password" />
+          <Button type="submit" style={{ width: '50%', marginTop: '30px' }}>
+            dalej
+          </Button>
+        </form>
+      </Wrapper>
+    </WelcomeTemplate>
+  );
+};
