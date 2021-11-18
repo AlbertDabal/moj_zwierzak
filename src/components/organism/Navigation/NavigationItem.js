@@ -3,10 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import Paragraph from 'components/atom/Paragraph/Paragraph';
 
 const Wrapper = styled.div`
   cursor: pointer;
   user-select: none;
+  margin-top: 30px;
 `;
 
 const StyledLink = styled(Link)`

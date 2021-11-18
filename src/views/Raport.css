@@ -1,0 +1,13 @@
+.react-datepicker {
+  transform: scale(1.7) translate(0px, 35px);
+  /* transform: translate(100px, 100px); */
+}
+
+.react-datepicker__month-container {
+  /* transform: translate(100px, 100px); */
+}
+
+.react-datepicker__triangle {
+  transform: translate(10px, 0px);
+  display: none;
+}

@@ -15,9 +15,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: blue;
+  background: linear-gradient(247.25deg, rgba(0, 190, 53, 0.2) 13.12%, rgba(0, 0, 0, 0) 102.02%),
+    #ffffff;
   height: 100vh;
-  background-image: url(${background});
 `;
 
 const Page = styled.div`
