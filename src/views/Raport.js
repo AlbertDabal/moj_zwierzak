@@ -54,22 +54,13 @@ const WrapperMain = styled.div`
 `;
 
 export const Raport = () => {
-  const [camera, setCamera] = useState(null);
-  const [selectedCamera, setSelectedCamera] = useState(0);
   const [startDate, setStartDate] = useState(new Date());
   const [finishDate, setFinishDate] = useState(new Date(new Date().setDate(new Date().getDate() + 7)));
-  const [raport, setRaport] = useState(null);
+  const [camera, setCamera] = useState(null);
+  const [selectedCamera, setSelectedCamera] = useState(null);
+  const [selectedAnimals, setSelectedAnimals] = useState(null);
 
-  const SetRaport = async () => {
-    const start = startDate.toJSON().substr(0, 10);
-    const finish = finishDate.toJSON().substr(0, 10);
-    try {
-      const res = await SetEvents(start, finish, selectedCamera);
-      setRaport(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [raport, setRaport] = useState(null);
 
   useEffect(() => {
     const SetCamera = async () => {
@@ -81,17 +72,31 @@ export const Raport = () => {
       }
     };
 
-    !camera && SetCamera();
+    SetCamera();
+  }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      SetRaport();
+    }, 120000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [startDate, finishDate, selectedCamera, selectedAnimals]);
 
-    SetRaport();
-  }, [selectedCamera, startDate, finishDate]);
+  const SetRaport = async () => {
+    const start = startDate.toJSON().substr(0, 10);
+    const finish = finishDate.toJSON().substr(0, 10);
+    try {
+      const res = await SetEvents(start, finish, selectedCamera, selectedAnimals);
+      setRaport(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    setInterval(() => {
-      SetRaport();
-      console.log('REFRESH');
-    }, 120000);
-  }, []);
+    SetRaport();
+  }, [selectedCamera, selectedAnimals, startDate, finishDate]);
 
   return (
     <MainTemplate>
@@ -103,21 +108,23 @@ export const Raport = () => {
         <StyledDatePicker selected={finishDate} onChange={(date) => setFinishDate(date)} />
         <ParagraphStyled>KAMERA</ParagraphStyled>
         <select value={selectedCamera} onChange={(e) => setSelectedCamera(e.target.value)}>
-          <option value={0}>WSZYSTKIE</option>
+          <option value={null}>WSZYSTKIE</option>
           {camera && camera.map((item) => <option value={item.id_kamery}>{item.wlasna_nazwa}</option>)}
         </select>
         <ParagraphStyled>RODZAJ</ParagraphStyled>
-        <select>
-          <option value="w">WSZYSTKIE</option>
-          <option value="k">KOT</option>
-          <option value="p">PIES</option>
+        <select value={selectedAnimals} onChange={(e) => setSelectedAnimals(e.target.value)}>
+          <option value={null}>WSZYSTKIE</option>
+          <option value="K">KOT</option>
+          <option value="P">PIES</option>
         </select>
         <WrapperSynchronize>
-          <Paragraph style={{ fontWeight: 600 }}>SYNCHRONIZUJ</Paragraph>
+          <Paragraph onClick={() => SetRaport()} style={{ fontWeight: 600 }}>
+            SYNCHRONIZUJ
+          </Paragraph>
           <AiOutlineSync />
         </WrapperSynchronize>
       </WrapperTop>
-      {console.log(raport)}
+
       {/* prettier-ignore */}
       <WrapperMain>
         {raport

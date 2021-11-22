@@ -24,7 +24,7 @@ const StyledButton = styled(Button)`
 
 export const EventItems = ({ dataWykrycia, wlasnaNazwa, zwierze }) => (
   <Wrapper>
-    <StyledParagraph>{dataWykrycia}</StyledParagraph>
+    <StyledParagraph>{`${dataWykrycia.substr(0, 10)} ${dataWykrycia.substr(11, 5)}`}</StyledParagraph>
     <StyledParagraph>{wlasnaNazwa}</StyledParagraph>
     <StyledParagraph>{zwierze === 'K' ? 'KOT' : 'PIES'}</StyledParagraph>
     <StyledButton>PODGLĄD ZDJĘCIA</StyledButton>
