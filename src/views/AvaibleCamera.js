@@ -1,5 +1,5 @@
 /* eslint-disable operator-linebreak */
-import { GetCamera } from 'api/FetchCamera';
+import { DeleteCamera, GetCamera } from 'api/FetchCamera';
 import Heading from 'components/atom/Heading/Heading';
 import styled from 'styled-components';
 import Paragraph from 'components/atom/Paragraph/Paragraph';
@@ -29,7 +29,7 @@ const WrapperEdit = styled.div`
   align-items: center;
   cursor: pointer;
   flex-direction: row;
-  width: 7%;
+  width: 10%;
 
   > svg {
     font-size: 20px;
@@ -57,6 +57,7 @@ const WrapperTop = styled.div`
 export const AvaibleCamera = () => {
   const [data, setData] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
+  const [isAddNew, setIsAddNew] = useState(false);
 
   useEffect(() => {
     const SetCamera = async () => {
@@ -70,6 +71,15 @@ export const AvaibleCamera = () => {
 
     SetCamera();
   }, []);
+
+  const Delete = async (idKamery) => {
+    try {
+      const res = await DeleteCamera(idKamery);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <MainTemplate>
@@ -85,7 +95,7 @@ export const AvaibleCamera = () => {
           </WrapperEdit>
         ) : (
           <WrapperEdit onClick={() => setIsEdit(!isEdit)}>
-            <Paragraph>ZAPISZ</Paragraph>
+            <Paragraph>ZAKOŃCZ</Paragraph>
             <AiOutlineCheck />
           </WrapperEdit>
         )}
@@ -100,8 +110,11 @@ export const AvaibleCamera = () => {
             {isEdit ? <AiOutlineClose style={{ cursor: 'pointer' }} /> : <div style={{ width: '16px' }}> </div>}
           </Wrapper>
         ))}
-
-      <StyledButton>DODAJ NOWĄ</StyledButton>
+      {!isAddNew ? (
+        <StyledButton onClick={() => setIsAddNew(!isAddNew)}>DODAJ NOWĄ</StyledButton>
+      ) : (
+        <StyledButton onClick={() => setIsAddNew(!isAddNew)}>ZAPISZ</StyledButton>
+      )}
     </MainTemplate>
   );
 };

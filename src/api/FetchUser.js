@@ -50,3 +50,57 @@ export const SetLogin = async (username, password) => {
 
   return res;
 };
+
+export const GetUser = async () => {
+  const token = sessionStorage.getItem('tokenAuth');
+  const res = await axios({
+    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/zwroc_zalogowanego`,
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).catch((error) => {
+    console.log(error);
+  });
+
+  return res;
+};
+
+export const EditUserInfo = async (login, imie, nazwisko, email) => {
+  const token = sessionStorage.getItem('tokenAuth');
+  const res = await axios({
+    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/edytuj_uzytkownika`,
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      login,
+      imie,
+      nazwisko,
+      email,
+    },
+  }).catch((error) => {
+    console.log(error);
+  });
+
+  console.log(res);
+};
+
+export const EditUserPassword = async (password) => {
+  const token = sessionStorage.getItem('tokenAuth');
+  const res = await axios({
+    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/edytuj_uzytkownika`,
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      hash_hasla: password,
+    },
+  }).catch((error) => {
+    console.log(error);
+  });
+
+  console.log(res);
+};
