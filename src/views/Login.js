@@ -66,6 +66,8 @@ export const Login = () => {
       if (e.target[4].value === e.target[5].value) {
         try {
           const res = await Register(user.login, user.imie, user.nazwisko, user.email, user.haslo);
+          e.target.reset();
+          setTypeForm('login');
         } catch (err) {
           console.log(err);
         }
@@ -82,14 +84,12 @@ export const Login = () => {
 
       try {
         const res = await SetLogin(user.login, user.haslo);
+        e.target.reset();
         history.push('/dashboard');
       } catch (err) {
         setError(err.response.data.error_description);
       }
     }
-
-    // history.push('/dashboard');
-    e.target.reset();
   };
 
   return (

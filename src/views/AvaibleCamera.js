@@ -88,17 +88,6 @@ export const AvaibleCamera = () => {
         <Paragraph>NAZWA</Paragraph>
         <Paragraph>MODEL</Paragraph>
         <Paragraph>NUMER SERYJNY</Paragraph>
-        {!isEdit ? (
-          <WrapperEdit onClick={() => setIsEdit(!isEdit)}>
-            <Paragraph>EDYTUJ</Paragraph>
-            <AiTwotoneEdit />
-          </WrapperEdit>
-        ) : (
-          <WrapperEdit onClick={() => setIsEdit(!isEdit)}>
-            <Paragraph>ZAKOŃCZ</Paragraph>
-            <AiOutlineCheck />
-          </WrapperEdit>
-        )}
       </WrapperTop>
 
       {data &&

@@ -1,4 +1,4 @@
-import { EditUserInfo, GetUser } from 'api/FetchUser';
+import { EditUserInfo, EditUserPassword, GetUser } from 'api/FetchUser';
 import styled from 'styled-components';
 import Paragraph from 'components/atom/Paragraph/Paragraph';
 import React, { useEffect, useState } from 'react';
@@ -45,6 +45,7 @@ export const Settings = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [isChangePassword, setIsChangePassword] = useState(false);
   const [error, setError] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const SetUser = async () => {
@@ -63,7 +64,7 @@ export const Settings = () => {
     };
 
     SetUser();
-  }, []);
+  }, [refresh]);
 
   const SaveUserInfo = async (e) => {
     e.preventDefault();
@@ -77,6 +78,9 @@ export const Settings = () => {
 
     try {
       const res = await EditUserInfo(user.login, user.imie, user.nazwisko, user.email);
+      setRefresh(!refresh);
+      setIsEdit(!isEdit);
+
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -90,8 +94,10 @@ export const Settings = () => {
 
     if (password === passwordRepeat) {
       try {
-        const res = await EditUserInfo(password);
+        const res = await EditUserPassword(data.login, data.imie, data.nazwisko, data.email, password);
         console.log(res);
+        setRefresh(!refresh);
+        setIsChangePassword(!isChangePassword);
       } catch (err) {
         console.log(err);
       }

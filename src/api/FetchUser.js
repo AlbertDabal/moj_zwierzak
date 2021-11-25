@@ -6,11 +6,6 @@ export const Register = async (login, imie, nazwisko, email, hash_hasla) => {
   const res = await axios({
     url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/dodaj_uzytkownika`,
     method: 'post',
-    headers: {
-      Authorization:
-        // eslint-disable-next-line max-len
-        'Bearer jHF2tLSq_PZaR4zLu9GLq165tqbnk0frsIpUp5kQLDW4KC8h20RtWV1SWa_D1UAztKILNr3kQ8ilVDzspWflYvcrGnyrkuD4t7i2eFmyyMlbh_bc3ThNjhwRPIvVvfJyrx8uLbDBGkRJjnvhgmCaM6EPgXyBc8Dr0Dok9Y-byyeCnOU0qJ3uX2IbIiAIXhzOV21YRgUCV1hhu3KDfUHlOQ',
-    },
     data: {
       login,
       hash_hasla,
@@ -69,7 +64,7 @@ export const GetUser = async () => {
 export const EditUserInfo = async (login, imie, nazwisko, email) => {
   const token = sessionStorage.getItem('tokenAuth');
   const res = await axios({
-    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/edytuj_uzytkownika`,
+    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/edytuj_uzytkownika_zalogowanego`,
     method: 'post',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -87,15 +82,19 @@ export const EditUserInfo = async (login, imie, nazwisko, email) => {
   console.log(res);
 };
 
-export const EditUserPassword = async (password) => {
+export const EditUserPassword = async (login, imie, nazwisko, email, password) => {
   const token = sessionStorage.getItem('tokenAuth');
   const res = await axios({
-    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/edytuj_uzytkownika`,
+    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/edytuj_uzytkownika_zalogowanego`,
     method: 'post',
     headers: {
       Authorization: `Bearer ${token}`,
     },
     data: {
+      login,
+      imie,
+      nazwisko,
+      email,
       hash_hasla: password,
     },
   }).catch((error) => {
