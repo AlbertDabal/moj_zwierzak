@@ -12,9 +12,9 @@ import { EventItems } from 'components/molecues/EventItems';
 import styles from './Raport.css';
 
 const WrapperTop = styled.div`
-  width: 60%;
+  width: 80%;
+  padding: 10px 100px;
   display: flex;
-  margin-left: 110px;
   margin-top: 60px;
   flex-direction: row;
   justify-content: flex-start;
@@ -50,7 +50,9 @@ const ParagraphStyled = styled(Paragraph)`
 `;
 
 const WrapperMain = styled.div`
-  margin-top: 70px;
+  margin-top: 0px;
+  overflow-y: scroll;
+  height: 70vh;
 `;
 
 export const Raport = () => {

@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  border-bottom: 1px solid #dfe0eb;
 `;
 
 const StyledParagraph = styled(Paragraph)`

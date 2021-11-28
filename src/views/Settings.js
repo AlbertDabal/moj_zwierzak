@@ -8,10 +8,12 @@ import Input from 'components/atom/Input/Input';
 
 const StyledWrapper = styled.div``;
 
-const StyledForm = styled.form``;
+const StyledForm = styled.form`
+  width: 30%;
+`;
 
 const StyledInput = styled(Input)`
-  width: 20%;
+  width: 70%;
   background-color: transparent;
   font-weight: 400;
   padding: 5px 10px;
@@ -22,7 +24,7 @@ const StyledInput = styled(Input)`
 const WrapperButton = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 24%;
+  width: 65%;
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -33,6 +35,10 @@ const StyledParagraph = styled(Paragraph)`
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-left: 100px;
+
   height: 70vh;
 `;
 
@@ -122,7 +128,7 @@ export const Settings = () => {
               </StyledWrapper>
             ))}
             {!isEdit ? (
-              <StyledButton style={{ width: '30%' }} onClick={() => setIsEdit(!isEdit)}>
+              <StyledButton style={{ width: '80%' }} onClick={() => setIsEdit(!isEdit)}>
                 EDYTUJ DANE LOGOWANIA
               </StyledButton>
             ) : (
@@ -141,7 +147,7 @@ export const Settings = () => {
               <StyledWrapper>
                 <StyledParagraph bold>HASLO</StyledParagraph>
                 <StyledParagraph>•••••••••••••••••••••</StyledParagraph>
-                <StyledButton style={{ width: '20%' }} onClick={() => setIsChangePassword(!isChangePassword)}>
+                <StyledButton style={{ width: '60%' }} onClick={() => setIsChangePassword(!isChangePassword)}>
                   ZMIEN HASŁO
                 </StyledButton>
               </StyledWrapper>

@@ -1,12 +1,14 @@
 /* eslint-disable operator-linebreak */
-import { DeleteCamera, GetCamera } from 'api/FetchCamera';
+import { AddCamera, DeleteCamera, GetCamera } from 'api/FetchCamera';
 import Heading from 'components/atom/Heading/Heading';
 import styled from 'styled-components';
 import Paragraph from 'components/atom/Paragraph/Paragraph';
 import React, { useState, useEffect } from 'react';
 import { MainTemplate } from 'templates/MainTemplate';
-import { AiTwotoneEdit, AiOutlineClose, AiOutlineCheck } from 'react-icons/ai';
+import { AiTwotoneEdit, AiOutlineClose, AiOutlineCheck, AiOutlineMore, AiOutlineArrowLeft } from 'react-icons/ai';
 import Button from 'components/atom/Button/Button';
+import { CameraItems } from 'components/molecues/CameraItems';
+import Input from 'components/atom/Input/Input';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,26 +23,27 @@ const StyledParagraph = styled(Paragraph)`
   padding: 10px;
 `;
 
-const WrapperEdit = styled.div`
-  user-select: none;
-  padding: 10px;
-  display: flex;
-  font-weight: 600;
-  align-items: center;
+const StyledParagraphButton = styled(Paragraph)`
+  background-color: ${({ theme, secondary }) => (secondary ? theme.secondaryColor : theme.thameColor)};
+  color: ${({ secondary }) => (secondary ? 'black' : 'white')};
+  border-radius: 30px;
+  border: none;
+  padding: 15px 38px;
+  font-size: ${({ theme }) => theme.fontSize.sx};
+  text-transform: uppercase;
+  font-weight: ${({ secondary }) => (secondary ? '400' : '600')};
   cursor: pointer;
-  flex-direction: row;
-  width: 10%;
-
-  > svg {
-    font-size: 20px;
-    margin-left: 10px;
-  }
 `;
 
-const StyledButton = styled(Button)`
+const WrapperEdit = styled.div`
   margin-top: 30px;
-  margin-left: 87%;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
+
+const StyledButton = styled(Button)``;
 
 const WrapperTop = styled.div`
   display: flex;
@@ -54,10 +57,22 @@ const WrapperTop = styled.div`
   }
 `;
 
+const StyledInput = styled(Input)`
+  background-color: transparent;
+  font-weight: 400;
+  padding: 5px 10px;
+  outline: none;
+  margin: 5px 5px;
+  width: 30%;
+
+  padding: 10px;
+`;
+
 export const AvaibleCamera = () => {
   const [data, setData] = useState(null);
-  const [isEdit, setIsEdit] = useState(false);
   const [isAddNew, setIsAddNew] = useState(false);
+  const [error, setError] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const SetCamera = async () => {
@@ -70,14 +85,33 @@ export const AvaibleCamera = () => {
     };
 
     SetCamera();
-  }, []);
+  }, [refresh]);
 
-  const Delete = async (idKamery) => {
-    try {
-      const res = await DeleteCamera(idKamery);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
+  const AddNewCamera = async (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    if (!isAddNew) {
+      setIsAddNew(!isAddNew);
+    } else if (e.target[0].value && e.target[0].value && e.target[1].value) {
+      setError(false);
+      const camera = {
+        nazwa: e.target[0].value,
+        model: e.target[1].value,
+        nrSeryjny: e.target[2].value,
+      };
+
+      try {
+        const res = await AddCamera(camera.nrSeryjny, camera.model, camera.nazwa);
+        console.log(res);
+        setIsAddNew(!isAddNew);
+        setRefresh(!refresh);
+      } catch (err) {
+        console.log(err);
+      }
+
+      console.log(camera);
+    } else {
+      setError(true);
     }
   };
 
@@ -92,18 +126,39 @@ export const AvaibleCamera = () => {
 
       {data &&
         data.map((item) => (
-          <Wrapper>
-            <StyledParagraph>{item.wlasna_nazwa}</StyledParagraph>
-            <StyledParagraph>{item.model}</StyledParagraph>
-            <StyledParagraph>{`NUMER SERYJNY: ${item.numer_seryjny}`}</StyledParagraph>
-            {isEdit ? <AiOutlineClose style={{ cursor: 'pointer' }} /> : <div style={{ width: '16px' }}> </div>}
-          </Wrapper>
+          <CameraItems
+            wlasnaNazwa={item.wlasna_nazwa}
+            model={item.model}
+            idKamery={item.id_kamery}
+            nrSeryjny={item.numer_seryjny}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
         ))}
-      {!isAddNew ? (
-        <StyledButton onClick={() => setIsAddNew(!isAddNew)}>DODAJ NOWĄ</StyledButton>
-      ) : (
-        <StyledButton onClick={() => setIsAddNew(!isAddNew)}>ZAPISZ</StyledButton>
-      )}
+      <form onSubmit={AddNewCamera}>
+        {isAddNew && (
+          <div style={{ width: '97%' }}>
+            <StyledInput placeholder="Nazwa" />
+            <StyledInput placeholder="Model" />
+            <StyledInput placeholder="Numer seryjny" />
+          </div>
+        )}
+        {error && <Paragraph style={{ color: 'red' }}>Nie wypełniono wszystkich pól</Paragraph>}
+        {!isAddNew ? (
+          <WrapperEdit>
+            <StyledButton type="submit">DODAJ NOWĄ</StyledButton>
+          </WrapperEdit>
+        ) : (
+          <WrapperEdit>
+            <StyledParagraphButton type="button" secondary onClick={() => setIsAddNew(!isAddNew)}>
+              ANULUJ
+            </StyledParagraphButton>
+            <StyledButton type="submit" value="Submit">
+              ZAPISZ
+            </StyledButton>
+          </WrapperEdit>
+        )}
+      </form>
     </MainTemplate>
   );
 };

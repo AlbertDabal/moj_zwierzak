@@ -12,15 +12,24 @@ import { Register, SetLogin } from 'api/FetchUser';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 75vh;
+  height: 72vh;
   background-color: white;
   width: 30%;
+  margin-left: 27%;
   margin-top: 30px;
   padding: 50px 50px;
 `;
 
 const SwitchWrapper = styled.div`
   height: 50px;
+`;
+
+const MainWrapper = styled.div`
+  background-color: red;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const Login = () => {
@@ -62,17 +71,21 @@ export const Login = () => {
       };
 
       console.log(user);
-
-      if (e.target[4].value === e.target[5].value) {
-        try {
-          const res = await Register(user.login, user.imie, user.nazwisko, user.email, user.haslo);
-          e.target.reset();
-          setTypeForm('login');
-        } catch (err) {
-          console.log(err);
+      if (user.login && user.imie && user.nazwisko && user.email && user.haslo) {
+        if (e.target[4].value === e.target[5].value) {
+          try {
+            const res = await Register(user.login, user.imie, user.nazwisko, user.email, user.haslo);
+            e.target.reset();
+            setError(null);
+            setTypeForm('login');
+          } catch (err) {
+            console.log(err);
+          }
+        } else {
+          setError('Hasla nie są identyczne');
         }
       } else {
-        setError('Hasla nie są identyczne');
+        setError('Nie wypełniono wszystkich pól');
       }
     } else {
       const user = {
@@ -94,7 +107,6 @@ export const Login = () => {
 
   return (
     <WelcomeTemplate>
-      <Heading>Sprawdź gdzie są twoje futszaki ...</Heading>
       <Wrapper>
         <SwitchWrapper>
           <SwitchSelector
