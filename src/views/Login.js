@@ -78,6 +78,7 @@ export const Login = () => {
             e.target.reset();
             setError(null);
             setTypeForm('login');
+            window.location.reload(false);
           } catch (err) {
             console.log(err);
           }
