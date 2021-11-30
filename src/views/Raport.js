@@ -102,6 +102,7 @@ export const Raport = () => {
 
   return (
     <MainTemplate>
+      {raport && console.log(raport)}
       <Heading>Gdzie ostatnio widziano twoje futrzaki...</Heading>
       <WrapperTop>
         <ParagraphStyled>OD</ParagraphStyled>
@@ -127,16 +128,19 @@ export const Raport = () => {
         </WrapperSynchronize>
       </WrapperTop>
 
-      {/* prettier-ignore */}
       <WrapperMain>
-        {raport
-          && (raport.length !== 0 ? (
-            raport.map((item) => (
-              <EventItems dataWykrycia={item.data_wykrycia} wlasnaNazwa={item.wlasna_nazwa} zwierze={item.zwierze} />
-            ))
-          ) : (
-            <Paragraph>BRAK ZDARZEN</Paragraph>
-          ))}
+        {raport && raport.length !== 0 ? (
+          raport.map((item) => (
+            <EventItems
+              dataWykrycia={item.data_wykrycia}
+              wlasnaNazwa={item.wlasna_nazwa}
+              zwierze={item.zwierze}
+              id={item.id_zdarzenia}
+            />
+          ))
+        ) : (
+          <Paragraph>BRAK ZDARZEN</Paragraph>
+        )}
       </WrapperMain>
     </MainTemplate>
   );
