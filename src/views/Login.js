@@ -7,7 +7,7 @@ import Input from 'components/atom/Input/Input';
 import Button from 'components/atom/Button/Button';
 import { useHistory, Link } from 'react-router-dom';
 import SwitchSelector from 'react-switch-selector';
-import { Register, SetLogin } from 'api/FetchUser';
+import { CheckAdmin, Register, SetLogin } from 'api/FetchUser';
 
 const Wrapper = styled.div`
   display: flex;
@@ -73,14 +73,19 @@ export const Login = () => {
       console.log(user);
       if (user.login && user.imie && user.nazwisko && user.email && user.haslo) {
         if (e.target[4].value === e.target[5].value) {
-          try {
-            const res = await Register(user.login, user.imie, user.nazwisko, user.email, user.haslo);
-            e.target.reset();
-            setError(null);
-            setTypeForm('login');
-            window.location.reload(false);
-          } catch (err) {
-            console.log(err);
+          // find camel lather and number
+          if (e.target[4].value.match(/\w*[A-Z]\w*[0-9]|\w*[0-9]\w*[A-Z]/g)) {
+            try {
+              const res = await Register(user.login, user.imie, user.nazwisko, user.email, user.haslo);
+              e.target.reset();
+              setError(null);
+              setTypeForm('login');
+              window.location.reload(false);
+            } catch (err) {
+              console.log(err);
+            }
+          } else {
+            setError('Hasło nie zawiera dużych znaków i cyfr');
           }
         } else {
           setError('Hasla nie są identyczne');
@@ -99,10 +104,20 @@ export const Login = () => {
       try {
         const res = await SetLogin(user.login, user.haslo);
         e.target.reset();
-        history.push('/dashboard');
+        CheckUser();
       } catch (err) {
         setError(err.response.data.error_description);
       }
+    }
+  };
+
+  const CheckUser = async () => {
+    try {
+      const response = await CheckAdmin();
+      console.log(response.data);
+      history.push('/dashboard');
+    } catch (err) {
+      console.log(err);
     }
   };
 

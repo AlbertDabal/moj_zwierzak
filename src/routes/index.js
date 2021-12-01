@@ -5,5 +5,8 @@ export const routes = {
   dashboard: '/dashboard',
   raport: '/raport',
   avaibleCamera: '/camera',
+  allUser: '/allUser',
+  UserRaport: '/allUser/raport/:id',
+  UserCamera: '/allUser/camera/:id',
   settings: '/settings',
 };

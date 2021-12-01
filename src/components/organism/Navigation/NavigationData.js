@@ -13,6 +13,7 @@ export const NavigationData = [
     title: 'Dostępne kamery',
     path: routes.avaibleCamera,
   },
+  { title: 'Wszyscy uzytkownicy', path: routes.allUser },
   {
     title: 'Ustawienia',
     path: routes.settings,

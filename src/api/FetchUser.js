@@ -103,3 +103,41 @@ export const EditUserPassword = async (login, imie, nazwisko, email, password) =
 
   console.log(res);
 };
+
+export const CheckAdmin = async () => {
+  const token = sessionStorage.getItem('tokenAuth');
+  const res = await axios({
+    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/czy_zalogowany_admin`,
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).catch((error) => {
+    console.log(error);
+  });
+
+  if (res.data === true) {
+    sessionStorage.setItem('isAdmin', res.data);
+  }
+
+  return res;
+};
+
+export const GetUsers = async () => {
+  const token = sessionStorage.getItem('tokenAuth');
+  const res = await axios({
+    url: `${process.env.REACT_APP_ADDRESS}api/uzytkownicy/zwroc_liste_uzytkownikow`,
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).catch((error) => {
+    console.log(error);
+  });
+
+  if (res.data === true) {
+    sessionStorage.setItem('isAdmin', res.data);
+  }
+
+  return res;
+};

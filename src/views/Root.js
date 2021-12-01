@@ -13,6 +13,7 @@ import { Test } from './Test';
 import { Raport } from './Raport';
 import { Settings } from './Settings';
 import { AvaibleCamera } from './AvaibleCamera';
+import { AllUser } from './AllUser';
 
 export const Root = () => (
   <ThemeProvider theme={theme}>
@@ -29,6 +30,9 @@ export const Root = () => (
         </PrivateRoute>
         <PrivateRoute exact path={routes.raport}>
           <Raport />
+        </PrivateRoute>
+        <PrivateRoute exact path={routes.allUser}>
+          <AllUser />
         </PrivateRoute>
         <PrivateRoute exact path={routes.settings}>
           <Settings />

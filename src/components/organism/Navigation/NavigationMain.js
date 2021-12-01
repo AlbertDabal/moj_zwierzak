@@ -1,5 +1,5 @@
 import Heading from 'components/atom/Heading/Heading';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import * as IconName from 'react-icons/io5';
@@ -40,11 +40,20 @@ export const NavigationMain = () => {
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation().pathname;
+  const [filteredData, setFilteredData] = useState(null);
 
   const Logout = () => {
     sessionStorage.clear();
     history.push('/');
   };
+
+  useEffect(() => {
+    setFilteredData(
+      sessionStorage.getItem('isAdmin')
+        ? NavigationData
+        : NavigationData.filter((item) => item.title !== 'Wszyscy uzytkownicy'),
+    );
+  }, []);
 
   return (
     <Wrapper>
@@ -59,7 +68,7 @@ export const NavigationMain = () => {
       {isOpen && (
         <WrapperItem>
           <WrapperMenu>
-            {NavigationData.map((item) => (
+            {filteredData.map((item) => (
               <NavigationItem title={item.title} path={item.path} location={location} />
             ))}
           </WrapperMenu>
