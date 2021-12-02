@@ -14,6 +14,8 @@ import { Raport } from './Raport';
 import { Settings } from './Settings';
 import { AvaibleCamera } from './AvaibleCamera';
 import { AllUser } from './AllUser';
+import { UsersRaport } from './UsersRaport';
+import { UsersCamera } from './UsersCamera';
 
 export const Root = () => (
   <ThemeProvider theme={theme}>
@@ -36,6 +38,12 @@ export const Root = () => (
         </PrivateRoute>
         <PrivateRoute exact path={routes.settings}>
           <Settings />
+        </PrivateRoute>
+        <PrivateRoute exact path={routes.userRaport}>
+          <UsersRaport />
+        </PrivateRoute>
+        <PrivateRoute exact path={routes.userCamera}>
+          <UsersCamera />
         </PrivateRoute>
       </Switch>
     </Router>

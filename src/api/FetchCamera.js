@@ -15,6 +15,21 @@ export const GetCamera = async () => {
   return res;
 };
 
+export const GetCameraUser = async (id) => {
+  const token = sessionStorage.getItem('tokenAuth');
+  const res = await axios({
+    url: `${process.env.REACT_APP_ADDRESS}api/kamery/zwroc_liste_uzytkownika/${id}`,
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).catch((error) => {
+    console.log(error);
+  });
+
+  return res;
+};
+
 export const DeleteCamera = async (idKamery) => {
   const token = sessionStorage.getItem('tokenAuth');
   const res = await axios({

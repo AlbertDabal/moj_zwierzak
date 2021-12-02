@@ -66,6 +66,7 @@ export const AllUser = () => {
               login={item.login}
               dataAktualizacji={item.data_ostatniej_aktualizacji}
               dataUtworzenia={item.data_utworzenia}
+              id={item.id_uzytkownika}
             />
           ))}
       </WrapperMain>

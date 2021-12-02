@@ -52,7 +52,7 @@ const Icon = styled(AiOutlineClose)`
   right: 16px;
 `;
 
-export const EventItems = ({ dataWykrycia, wlasnaNazwa, zwierze, id }) => {
+export const RaportItems = ({ dataWykrycia, wlasnaNazwa, zwierze, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [url, setUrl] = useState(null);
 
@@ -82,7 +82,7 @@ export const EventItems = ({ dataWykrycia, wlasnaNazwa, zwierze, id }) => {
   );
 };
 
-EventItems.propTypes = {
+RaportItems.propTypes = {
   dataWykrycia: PropTypes.string.isRequired,
   wlasnaNazwa: PropTypes.string.isRequired,
   zwierze: PropTypes.string.isRequired,

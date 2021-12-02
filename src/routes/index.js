@@ -6,7 +6,7 @@ export const routes = {
   raport: '/raport',
   avaibleCamera: '/camera',
   allUser: '/allUser',
-  UserRaport: '/allUser/raport/:id',
-  UserCamera: '/allUser/camera/:id',
+  userRaport: '/allUser/raport/:id',
+  userCamera: '/allUser/camera/:id',
   settings: '/settings',
 };

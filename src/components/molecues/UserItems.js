@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Paragraph from 'components/atom/Paragraph/Paragraph';
 import Button from 'components/atom/Button/Button';
+import { Link, useLocation } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,14 +24,14 @@ const WrapperButton = styled.div`
   width: 15%;
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Link)`
   padding: 10px 10px;
 
   width: 100px;
   height: 40px;
 `;
 
-export const UserItems = ({ imie, nazwisko, email, login, dataAktualizacji, dataUtworzenia }) => (
+export const UserItems = ({ id, imie, nazwisko, email, login, dataAktualizacji, dataUtworzenia }) => (
   <Wrapper>
     <StyledParagraph>{imie}</StyledParagraph>
     <StyledParagraph>{nazwisko}</StyledParagraph>
@@ -38,13 +39,14 @@ export const UserItems = ({ imie, nazwisko, email, login, dataAktualizacji, data
     <StyledParagraph>{login}</StyledParagraph>
     <StyledParagraph>{dataUtworzenia}</StyledParagraph>
     <WrapperButton>
-      <StyledButton>RAPORTY</StyledButton>
-      <StyledButton>KAMERY</StyledButton>
+      <StyledButton to={`/allUser/raport/${id}`}>RAPORTY</StyledButton>
+      <StyledButton to={`/allUser/camera/${id}`}>KAMERY</StyledButton>
     </WrapperButton>
   </Wrapper>
 );
 
 UserItems.propTypes = {
+  id: PropTypes.string.isRequired,
   imie: PropTypes.string.isRequired,
   nazwisko: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
