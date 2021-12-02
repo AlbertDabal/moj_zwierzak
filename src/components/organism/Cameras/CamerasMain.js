@@ -24,27 +24,29 @@ const StyledParagraph = styled(Paragraph)`
   padding: 10px;
 `;
 
+const WrapperEdit = styled.div`
+  user-select: none;
+  display: flex;
+  width: 15%;
+  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 50px;
+`;
+
+const StyledButton = styled(Button)``;
+
 const StyledParagraphButton = styled(Paragraph)`
   background-color: ${({ theme, secondary }) => (secondary ? theme.secondaryColor : theme.thameColor)};
   color: ${({ secondary }) => (secondary ? 'black' : 'white')};
   border-radius: 30px;
   border: none;
-  padding: 15px 38px;
+  padding: 10px 38px;
   font-size: ${({ theme }) => theme.fontSize.sx};
   text-transform: uppercase;
   font-weight: ${({ secondary }) => (secondary ? '400' : '600')};
   cursor: pointer;
 `;
-
-const WrapperEdit = styled.div`
-  margin-top: 30px;
-  user-select: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const StyledButton = styled(Button)``;
 
 const WrapperTop = styled.div`
   display: flex;
@@ -67,6 +69,17 @@ const StyledInput = styled(Input)`
   width: 30%;
 
   padding: 10px;
+`;
+
+const MainWrapper = styled.div`
+  overflow-y: scroll;
+  height: 60vh;
+`;
+
+const WrapperInput = styled.div`
+  position: absolute;
+  width: 77%;
+  bottom: 130px;
 `;
 
 export const CamerasMain = ({ userId }) => {
@@ -124,42 +137,43 @@ export const CamerasMain = ({ userId }) => {
         <Paragraph>MODEL</Paragraph>
         <Paragraph>NUMER SERYJNY</Paragraph>
       </WrapperTop>
-
-      {data &&
-        data.map((item) => (
-          <CameraItems
-            wlasnaNazwa={item.wlasna_nazwa}
-            model={item.model}
-            idKamery={item.id_kamery}
-            nrSeryjny={item.numer_seryjny}
-            refresh={refresh}
-            setRefresh={setRefresh}
-          />
-        ))}
-      <form onSubmit={AddNewCamera}>
-        {isAddNew && (
-          <div style={{ width: '97%' }}>
-            <StyledInput placeholder="Nazwa" />
-            <StyledInput placeholder="Model" />
-            <StyledInput placeholder="Numer seryjny" />
-          </div>
-        )}
-        {error && <Paragraph style={{ color: 'red' }}>Nie wypełniono wszystkich pól</Paragraph>}
-        {!isAddNew ? (
-          <WrapperEdit>
-            <StyledButton type="submit">DODAJ NOWĄ</StyledButton>
-          </WrapperEdit>
-        ) : (
-          <WrapperEdit>
-            <StyledParagraphButton type="button" secondary onClick={() => setIsAddNew(!isAddNew)}>
-              ANULUJ
-            </StyledParagraphButton>
-            <StyledButton type="submit" value="Submit">
-              ZAPISZ
-            </StyledButton>
-          </WrapperEdit>
-        )}
-      </form>
+      <MainWrapper>
+        {data &&
+          data.map((item) => (
+            <CameraItems
+              wlasnaNazwa={item.wlasna_nazwa}
+              model={item.model}
+              idKamery={item.id_kamery}
+              nrSeryjny={item.numer_seryjny}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
+          ))}
+        <form onSubmit={AddNewCamera}>
+          {isAddNew && (
+            <WrapperInput>
+              <StyledInput placeholder="Nazwa" />
+              <StyledInput placeholder="Model" />
+              <StyledInput placeholder="Numer seryjny" />
+            </WrapperInput>
+          )}
+          {error && <Paragraph style={{ color: 'red' }}>Nie wypełniono wszystkich pól</Paragraph>}
+          {!isAddNew ? (
+            <WrapperEdit>
+              <StyledButton type="submit">DODAJ NOWĄ</StyledButton>
+            </WrapperEdit>
+          ) : (
+            <WrapperEdit>
+              <StyledParagraphButton type="button" secondary onClick={() => setIsAddNew(!isAddNew)}>
+                ANULUJ
+              </StyledParagraphButton>
+              <StyledButton type="submit" value="Submit">
+                ZAPISZ
+              </StyledButton>
+            </WrapperEdit>
+          )}
+        </form>
+      </MainWrapper>
     </div>
   );
 };

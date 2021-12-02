@@ -45,8 +45,8 @@ export const AllUser = () => {
 
   return (
     <MainTemplate>
-      <Heading>Wszyscy użytkownicy</Heading>
-      <WrapperTop>
+      <Heading style={{ userSelect: 'none' }}>Wszyscy użytkownicy</Heading>
+      <WrapperTop style={{ userSelect: 'none' }}>
         <StyledParagraph>Imie</StyledParagraph>
         <StyledParagraph>Nazwisko</StyledParagraph>
         <StyledParagraph>Email</StyledParagraph>
@@ -56,7 +56,7 @@ export const AllUser = () => {
         <StyledParagraph> </StyledParagraph>
       </WrapperTop>
 
-      <WrapperMain>
+      <WrapperMain style={{ userSelect: 'none' }}>
         {data &&
           data.map((item) => (
             <UserItems

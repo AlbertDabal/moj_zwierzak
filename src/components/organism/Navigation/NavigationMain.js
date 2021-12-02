@@ -28,7 +28,7 @@ const Icon = styled.div`
   left: 0;
   padding: 30px 30px;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
 
   > svg {
     cursor: pointer;
