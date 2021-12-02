@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Input from 'components/atom/Input/Input';
 import { AiTwotoneEdit, AiOutlineClose, AiOutlineCheck, AiOutlineMore, AiOutlineArrowLeft } from 'react-icons/ai';
-import { DeleteCamera, EditCamera } from 'api/FetchCamera';
+import { DeleteCamera, EditCamera, EditCameraUsers } from 'api/FetchCamera';
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,7 +57,7 @@ const StyledForm = styled.form`
   width: 100%;
 `;
 
-export const CameraItems = ({ wlasnaNazwa, model, nrSeryjny, idKamery, refresh, setRefresh }) => {
+export const CameraItems = ({ wlasnaNazwa, model, nrSeryjny, idKamery, refresh, setRefresh, userId }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const Delete = async () => {
@@ -80,9 +80,10 @@ export const CameraItems = ({ wlasnaNazwa, model, nrSeryjny, idKamery, refresh, 
       model: e.target[1].value,
       nrSeryjny: e.target[2].value,
     };
-
     try {
-      const res = await EditCamera(idKamery, camera.nrSeryjny, camera.model, camera.nazwa);
+      const res = await (userId
+        ? EditCameraUsers(userId, idKamery, camera.nrSeryjny, camera.model, camera.nazwa)
+        : EditCamera(idKamery, camera.nrSeryjny, camera.model, camera.nazwa));
       console.log(res);
       setIsEdit(!isEdit);
       setRefresh(!refresh);
@@ -104,7 +105,7 @@ export const CameraItems = ({ wlasnaNazwa, model, nrSeryjny, idKamery, refresh, 
           <>
             <StyledParagraph>{wlasnaNazwa}</StyledParagraph>
             <StyledParagraph>{model}</StyledParagraph>
-            <StyledParagraph>{`NUMER SERYJNY: ${nrSeryjny}`}</StyledParagraph>
+            <StyledParagraph>{nrSeryjny}</StyledParagraph>
           </>
         )}
         {isEdit ? (
@@ -133,4 +134,5 @@ CameraItems.propTypes = {
   idKamery: PropTypes.string.isRequired,
   refresh: PropTypes.string.isRequired,
   setRefresh: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 };

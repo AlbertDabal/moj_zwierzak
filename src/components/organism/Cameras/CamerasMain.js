@@ -1,5 +1,5 @@
 /* eslint-disable operator-linebreak */
-import { AddCamera, DeleteCamera, GetCamera, GetCameraUser } from 'api/FetchCamera';
+import { AddCamera, AddCameraUsers, DeleteCamera, GetCamera, GetCameraUser } from 'api/FetchCamera';
 import Heading from 'components/atom/Heading/Heading';
 import styled from 'styled-components';
 import Paragraph from 'components/atom/Paragraph/Paragraph';
@@ -15,13 +15,11 @@ const Wrapper = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  border-bottom: 1px solid #dfe0eb;
+  border-bottom: 2px solid black;
 `;
 
 const StyledParagraph = styled(Paragraph)`
-  width: 30%;
-
-  padding: 10px;
+  font-weight: 700;
 `;
 
 const WrapperEdit = styled.div`
@@ -31,7 +29,7 @@ const WrapperEdit = styled.div`
   flex-direction: row;
   justify-content: space-between;
   position: absolute;
-  bottom: 50px;
+  bottom: 70px;
 `;
 
 const StyledButton = styled(Button)``;
@@ -52,7 +50,7 @@ const WrapperTop = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
-  border-bottom: 1px solid #dfe0eb;
+  border-bottom: 2px solid black;
 
   > p {
     padding: 10px;
@@ -72,8 +70,8 @@ const StyledInput = styled(Input)`
 `;
 
 const MainWrapper = styled.div`
-  overflow-y: scroll;
-  height: 60vh;
+  overflow-y: auto;
+  max-height: 60vh;
 `;
 
 const WrapperInput = styled.div`
@@ -115,7 +113,9 @@ export const CamerasMain = ({ userId }) => {
       };
 
       try {
-        const res = await AddCamera(camera.nrSeryjny, camera.model, camera.nazwa);
+        const res = await (userId
+          ? AddCameraUsers(userId, camera.nrSeryjny, camera.model, camera.nazwa)
+          : AddCamera(camera.nrSeryjny, camera.model, camera.nazwa));
         console.log(res);
         setIsAddNew(!isAddNew);
         setRefresh(!refresh);
@@ -133,9 +133,9 @@ export const CamerasMain = ({ userId }) => {
     <div>
       <Heading>Lista kamer</Heading>
       <WrapperTop>
-        <Paragraph>NAZWA</Paragraph>
-        <Paragraph>MODEL</Paragraph>
-        <Paragraph>NUMER SERYJNY</Paragraph>
+        <StyledParagraph>NAZWA</StyledParagraph>
+        <StyledParagraph>MODEL</StyledParagraph>
+        <StyledParagraph>NUMER SERYJNY</StyledParagraph>
       </WrapperTop>
       <MainWrapper>
         {data &&
@@ -147,6 +147,7 @@ export const CamerasMain = ({ userId }) => {
               nrSeryjny={item.numer_seryjny}
               refresh={refresh}
               setRefresh={setRefresh}
+              userId={userId}
             />
           ))}
         <form onSubmit={AddNewCamera}>

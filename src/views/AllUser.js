@@ -9,7 +9,7 @@ import Paragraph from 'components/atom/Paragraph/Paragraph';
 import Button from 'components/atom/Button/Button';
 
 const WrapperMain = styled.div`
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 70vh;
 `;
 
@@ -17,13 +17,14 @@ const WrapperTop = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid #dfe0eb;
+  border-bottom: 2px solid black;
   margin-top: 40px;
 `;
 
 const StyledParagraph = styled(Paragraph)`
   width: 16%;
   padding: 10px 0px;
+  font-weight: 700;
 `;
 
 export const AllUser = () => {

@@ -51,8 +51,8 @@ const ParagraphStyled = styled(Paragraph)`
 
 const WrapperMain = styled.div`
   margin-top: 0px;
-  overflow-y: scroll;
-  height: 70vh;
+  overflow-y: auto;
+  height: 65vh;
 `;
 
 export const RaportsMain = ({ userId }) => {

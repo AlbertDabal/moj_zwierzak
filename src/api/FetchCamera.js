@@ -62,6 +62,23 @@ export const AddCamera = async (nrSeryjny, model, wlasnaNazwa) => {
   });
 };
 
+export const AddCameraUsers = async (id, nrSeryjny, model, wlasnaNazwa) => {
+  const token = sessionStorage.getItem('tokenAuth');
+  const res = await axios({
+    url: `${process.env.REACT_APP_ADDRESS}api/kamery/dodaj_kamere`,
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      id_uzytkownika: id,
+      numer_seryjny: nrSeryjny,
+      model,
+      wlasna_nazwa: wlasnaNazwa,
+    },
+  });
+};
+
 export const EditCamera = async (idKamery, nrSeryjny, model, wlasnaNazwa) => {
   const token = sessionStorage.getItem('tokenAuth');
   const res = await axios({
@@ -71,6 +88,24 @@ export const EditCamera = async (idKamery, nrSeryjny, model, wlasnaNazwa) => {
       Authorization: `Bearer ${token}`,
     },
     data: {
+      id_kamery: idKamery,
+      numer_seryjny: nrSeryjny,
+      model,
+      wlasna_nazwa: wlasnaNazwa,
+    },
+  });
+};
+
+export const EditCameraUsers = async (id, idKamery, nrSeryjny, model, wlasnaNazwa) => {
+  const token = sessionStorage.getItem('tokenAuth');
+  const res = await axios({
+    url: `${process.env.REACT_APP_ADDRESS}api/kamery/edytuj_kamere`,
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      id_uzytkownika: id,
       id_kamery: idKamery,
       numer_seryjny: nrSeryjny,
       model,

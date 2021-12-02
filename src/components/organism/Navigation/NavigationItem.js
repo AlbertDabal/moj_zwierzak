@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 import Paragraph from 'components/atom/Paragraph/Paragraph';
+import { routes } from 'routes';
 
 const Wrapper = styled.div`
   cursor: pointer;
@@ -20,10 +21,7 @@ const StyledLink = styled(Link)`
 
 export const NavigationItem = ({ title, path, location }) => (
   <Wrapper>
-    <StyledLink
-      to={path}
-      style={path === location ? { color: 'hsl(137, 100%, 37%) ' } : { color: 'black' }}
-    >
+    <StyledLink to={path} style={path === location ? { color: 'hsl(137, 100%, 37%) ' } : { color: 'black' }}>
       {title}
     </StyledLink>
   </Wrapper>

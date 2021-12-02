@@ -25,10 +25,16 @@ const WrapperButton = styled.div`
 `;
 
 const StyledButton = styled(Link)`
-  padding: 10px 10px;
-
-  width: 100px;
-  height: 40px;
+  background-color: ${({ theme, secondary }) => (secondary ? theme.secondaryColor : theme.thameColor)};
+  color: ${({ secondary }) => (secondary ? 'black' : 'white')};
+  border-radius: 30px;
+  border: none;
+  padding: 5px 18px;
+  text-decoration: none;
+  font-size: ${({ theme }) => theme.fontSize.sx};
+  text-transform: uppercase;
+  font-weight: ${({ secondary }) => (secondary ? '400' : '600')};
+  cursor: pointer;
 `;
 
 export const UserItems = ({ id, imie, nazwisko, email, login, dataAktualizacji, dataUtworzenia }) => (
