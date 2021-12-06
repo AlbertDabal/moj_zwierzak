@@ -165,7 +165,14 @@ export const CamerasMain = ({ userId }) => {
             </WrapperEdit>
           ) : (
             <WrapperEdit>
-              <StyledParagraphButton type="button" secondary onClick={() => setIsAddNew(!isAddNew)}>
+              <StyledParagraphButton
+                type="button"
+                secondary
+                onClick={() => {
+                  setIsAddNew(!isAddNew);
+                  setError(false);
+                }}
+              >
                 ANULUJ
               </StyledParagraphButton>
               <StyledButton type="submit" value="Submit">

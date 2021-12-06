@@ -56,8 +56,8 @@ const WrapperMain = styled.div`
 `;
 
 export const RaportsMain = ({ userId }) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [finishDate, setFinishDate] = useState(new Date(new Date().setDate(new Date().getDate() + 7)));
+  const [startDate, setStartDate] = useState(new Date(new Date().setDate(new Date().getDate() - 6)));
+  const [finishDate, setFinishDate] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
   const [camera, setCamera] = useState(null);
   const [selectedCamera, setSelectedCamera] = useState(null);
   const [selectedAnimals, setSelectedAnimals] = useState(null);
