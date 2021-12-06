@@ -70,7 +70,7 @@ export const RaportItems = ({ dataWykrycia, wlasnaNazwa, zwierze, id }) => {
     <Wrapper>
       <StyledParagraph>{`${dataWykrycia.substr(0, 10)} ${dataWykrycia.substr(11, 5)}`}</StyledParagraph>
       <StyledParagraph>{wlasnaNazwa}</StyledParagraph>
-      <StyledParagraph>{zwierze === 'K' ? 'KOT' : 'PIES'}</StyledParagraph>
+      <StyledParagraph>{zwierze === 'k' ? 'KOT' : 'PIES'}</StyledParagraph>
       <StyledButton onClick={() => ShowPhoto()}>PODGLĄD ZDJĘCIA</StyledButton>
       {isOpen && (
         <ShadowBox>
