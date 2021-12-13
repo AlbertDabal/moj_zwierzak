@@ -28,7 +28,7 @@ const StyledLink = styled(Link)`
 const Wellcome = () => (
   <WelcomeTemplate>
     <Wrapper>
-      <Heading>Sprawdź gdzie są twoje futszaki ...</Heading>
+      <Heading>Sprawdź gdzie są twoje futrzaki ...</Heading>
       <StyledLink to="/login" style={{ width: '250px', marginTop: 30 }}>
         dołącz już teraz
       </StyledLink>

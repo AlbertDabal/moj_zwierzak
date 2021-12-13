@@ -12,7 +12,7 @@ import { CheckAdmin, Register, SetLogin } from 'api/FetchUser';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 72vh;
+  height: 74vh;
   background-color: white;
   width: 30%;
   margin-left: 27%;
@@ -145,6 +145,9 @@ export const Login = () => {
               <Input placeholder="Email" />
               <Input placeholder="Hasło" type="password" />
               <Input placeholder="Powtórz hasło" type="password" />
+              <Paragraph style={{ fontSize: '11px' }}>
+                *Hasło powinno zawierać przynajmniej jedną dużą literę i cyfrę
+              </Paragraph>
             </>
           ) : (
             <>

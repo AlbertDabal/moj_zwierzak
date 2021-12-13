@@ -59,7 +59,7 @@ const Dashboard = () => {
 
   return (
     <MainTemplate>
-      <Heading style={{ userSelect: 'none' }}>Jak czesto widziany jest twój futszak ...</Heading>
+      <Heading style={{ userSelect: 'none' }}>Jak czesto widziany jest twój futrzak ...</Heading>
       {data && <Line style={{ height: '20vh' }} data={data} />}
     </MainTemplate>
   );

@@ -157,6 +157,9 @@ export const Settings = () => {
                 <StyledInput type="password" />
                 <StyledParagraph bold>PODAJ PONOWNIE NOWE HASŁO</StyledParagraph>
                 <StyledInput type="password" />
+                <Paragraph style={{ fontSize: '11px' }}>
+                  *Hasło powinno zawierać przynajmniej jedną dużą literę i cyfrę
+                </Paragraph>
                 <StyledParagraph style={{ color: 'red' }}>{error}</StyledParagraph>
                 <WrapperButton>
                   <StyledButton

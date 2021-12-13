@@ -116,7 +116,7 @@ export const RaportsMain = ({ userId }) => {
           <option value={null}>WSZYSTKIE</option>
           {camera && camera.map((item) => <option value={item.id_kamery}>{item.wlasna_nazwa}</option>)}
         </select>
-        <ParagraphStyled>RODZAJ</ParagraphStyled>
+        <ParagraphStyled>OBIEKT</ParagraphStyled>
         <select value={selectedAnimals} onChange={(e) => setSelectedAnimals(e.target.value)}>
           <option value={null}>WSZYSTKIE</option>
           <option value="K">KOT</option>
